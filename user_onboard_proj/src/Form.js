@@ -1,9 +1,60 @@
 import React from "react";
 
-function Form(props) {
+const Form = (props) => {
+    const { change, submit } = props;
+    const { username, email, password, checked } = props.values;
+
+    const onChange = (e) => {
+        const { name, value, checked, type } = e.target;
+        const newVal = type === 'checkbox' ? checked : value;
+        change(name, newVal);
+    }
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        submit();
+    }
+
     return (
-        null
-    )
+        <div>
+            <h1>User Form</h1>
+            <form onSubmit={onSubmit}>
+                <label>Name:
+                    <input 
+                        type="text"
+                        name="username"
+                        value={username}
+                        onChange={onChange}
+                    />
+                </label>    
+                <label>Email:
+                    <input 
+                        type="email"
+                        name="email"
+                        value={email}
+                        onChange={onChange}
+                    />
+                </label>    
+                <label>Password:
+                    <input 
+                        type="password"
+                        name="password"
+                        value={password}
+                        onChange={onChange}
+                    />
+                </label>
+                <label>Terms of Service:
+                    <input 
+                        type="checkbox"
+                        name="tos"
+                        onChange={onChange}
+                        checked={checked}
+                    />
+                </label>
+                <input type="submit" value="Submit new user"/>
+            </form>
+        </div>
+    ) 
 }
 
 export default Form
